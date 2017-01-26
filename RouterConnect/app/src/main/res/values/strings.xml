@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RouterConnect</string>
+    <string name="scan_qr_code">Scan the QR Code</string>
+    <string name="network_connecting">Connecting to network</string>
+    <string name="scan_type">QR_CODE</string>
+    <string name="attempt_connection">Attempting to connect to network: </string>
+    <string name="connection_failure">Failed to connect to network: </string>
+    <string name="auth_error">Authentication failure.</string>
+    <string name="successful_connection">Congratulations!!!\n \nYour Linksys router is now connected securley to the internet.</string>
+</resources>
