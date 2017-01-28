@@ -1,10 +1,24 @@
 <resources>
     <string name="app_name">RouterConnect</string>
+
+    <!-- Activity labels -->
     <string name="scan_qr_code">Scan the QR Code</string>
     <string name="network_connecting">Connecting to network</string>
+    <string name="config_network">Configure network</string>
+    <string name="config_completed">Configure completed</string>
+    <!-- End Activity labels -->
+
     <string name="scan_type">QR_CODE</string>
     <string name="attempt_connection">Attempting to connect to network: </string>
     <string name="connection_failure">Failed to connect to network: </string>
     <string name="auth_error">Authentication failure.</string>
-    <string name="successful_connection">Congratulations!!!\n \nYour Linksys router is now connected securley to the internet.</string>
+    <string name="successful_connection">Connected to your Linksys router, you can now configure your router.</string>
+    <string name="configure">Configure</string>
+    <string name="configure_msg">Select a name for your WiFi network and press OK</string>
+    <string name="ssid">SSID</string>
+    <string name="linksys_ssid">SSID of your Linksys router</string>
+    <string name="ok">OK</string>
+    <string name="invalid_ssid">Invalid SSID</string>
+    <string name="enter_valid_ssid">Please enter valid SSID for your Linksys router.</string>
+    <string name="config_completed_msg">Congratulations!!! \n\nYour Linksys router is now configured.</string>
 </resources>

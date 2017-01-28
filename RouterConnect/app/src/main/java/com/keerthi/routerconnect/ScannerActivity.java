@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -45,6 +44,11 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                 String ssid = parts[0].substring(6);
                 String password = parts[1].substring(10);
                 String security = parts[2].substring(10);
+                String hidden = "false";
+
+                if(parts.length > 3){
+                    hidden = parts[3].substring(8);
+                }
 
                 Toast.makeText(this, "SSID = " + ssid +
                         "\nPassword = " + password +
@@ -54,6 +58,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                 intent.putExtra("ssid", ssid);
                 intent.putExtra("password", password);
                 intent.putExtra("security", security);
+                intent.putExtra("hidden", hidden);
 
                 startActivity(intent);
             }else{
@@ -77,7 +82,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
-        setContentView(R.layout.scanner_activity);
+        setContentView(R.layout.activity_scanner);
         setupToolbar();
 
         ViewGroup contentFrame = (ViewGroup) findViewById(R.id.content_frame);

@@ -4,16 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.wifi.ScanResult;
 import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
+import com.keerthi.routerconnect.utils.RLog;
 
 /**
  * Created by keerthi on 26/01/17.
@@ -21,7 +21,8 @@ import java.util.List;
 
 public class NetworkConnectActivity extends AppCompatActivity {
 
-    private WiFiStateReciver wifiReceiver;
+    private WiFiStateReceiver wifiReceiver;
+    private Button mBtnConfigure;
 
     private void updateTextView(String text) {
         TextView textView = (TextView) findViewById(R.id.txtNetworkStatus);
@@ -34,24 +35,37 @@ public class NetworkConnectActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        Log.i("RouterApp: ", bundle.getString("ssid"));
-        Log.i("RouterApp: ", bundle.getString("password"));
+        RLog.i("SSID: " + bundle.getString("ssid"));
+        RLog.i("Password: " +bundle.getString("password"));
+        RLog.i("Security" + bundle.getString("security"));
 
-        setContentView(R.layout.network_connect_activity);
+        setContentView(R.layout.activity_network_connect);
 
 
         updateTextView(getString(R.string.attempt_connection) + bundle.getString("ssid"));
 
-        wifiReceiver = new WiFiStateReciver();
+        wifiReceiver = new WiFiStateReceiver();
         this.registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION));
 
-        connectToWiFiNetwork(bundle.getString("ssid"), bundle.getString("password"), bundle.getString("security"));
+        connectToWiFiNetwork(bundle.getString("ssid"), bundle.getString("password"),
+                bundle.getString("security"), Boolean.parseBoolean(bundle.getString("hidden")));
+
+        mBtnConfigure = (Button) findViewById(R.id.btnConfigure);
+        mBtnConfigure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NetworkConnectActivity.this, ConfigureNetworkActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    public void connectToWiFiNetwork(String ssid, String keyPass, String security){
+    public void connectToWiFiNetwork(String ssid, String keyPass, String security, boolean hidden){
 
         WifiConfiguration conf = new WifiConfiguration();
         conf.SSID =  "\"" + ssid + "\"";
+
+        conf.hiddenSSID = hidden;
 
         switch (security){
             case "WPA":
@@ -77,11 +91,13 @@ public class NetworkConnectActivity extends AppCompatActivity {
         wifiManager.reconnect();
 
 
-        Log.i("RouterConnect", "Connecting to Network: " + conf.SSID);
+        RLog.i("Connecting to Network: " + conf.SSID);
     }
 
     private void onCompleted(){
         updateTextView(getString(R.string.successful_connection));
+
+        mBtnConfigure.setEnabled(true);
     }
 
     private void onAuthenticationError(){
@@ -92,7 +108,7 @@ public class NetworkConnectActivity extends AppCompatActivity {
 
     }
 
-    private class WiFiStateReciver extends BroadcastReceiver {
+    private class WiFiStateReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -102,17 +118,16 @@ public class NetworkConnectActivity extends AppCompatActivity {
                 state = (SupplicantState) intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
 
                 {
-                    Log.d("NetworkView", "New state: "+state);
-                    Log.d("NetworkView", "New error: "+intent.getIntExtra(WifiManager
-                            .EXTRA_SUPPLICANT_ERROR,-1));
+                    RLog.d("New network state: " +state);
+
                     if (intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, -1)==WifiManager.ERROR_AUTHENTICATING) {
-                        Log.d("NetworkView", "Error authenticating");
+                        RLog.d("Error authenticating");
                         onAuthenticationError();
 
                     }
                     else if ((intent.getParcelableExtra(WifiManager
                             .EXTRA_NEW_STATE))== SupplicantState.COMPLETED){
-                        Log.d("NetworkUtil", "Connection Completed");
+                        RLog.d("Connection to WiFi network completed");
                         onCompleted();
                     }
                 }

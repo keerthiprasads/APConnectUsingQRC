@@ -32,7 +32,19 @@
 
         <activity android:name=".NetworkConnectActivity"
             android:theme="@style/AppOverlayTheme"
-            android:label="@string/scan_qr_code">>
+            android:label="@string/network_connecting">>
+
+        </activity>
+
+        <activity android:name=".ConfigureNetworkActivity"
+            android:theme="@style/AppOverlayTheme"
+            android:label="@string/config_network">>
+
+        </activity>
+
+        <activity android:name=".ConfigCompletedActivity"
+            android:theme="@style/AppOverlayTheme"
+            android:label="@string/config_completed">>
 
         </activity>
     </application>
