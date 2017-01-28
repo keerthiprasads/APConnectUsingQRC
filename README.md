@@ -10,3 +10,4 @@ Password: password-of-router
 
 Security: WPA
 
+hidden: false #Set the value to true if the SSID is not broadcasted.
