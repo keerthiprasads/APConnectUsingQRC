@@ -26,13 +26,13 @@
             android:text=""/>
 
 
-        <Button
+       <!-- <Button
             android:id="@+id/btnConfigure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="@string/configure"
-            android:layout_alignTop="@+id/txtNetworkStatus"/>
+            android:layout_alignTop="@+id/txtNetworkStatus"/>-->
 
     </LinearLayout>
 

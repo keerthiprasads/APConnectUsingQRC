@@ -22,7 +22,7 @@ import com.keerthi.routerconnect.utils.RLog;
 public class NetworkConnectActivity extends AppCompatActivity {
 
     private WiFiStateReceiver wifiReceiver;
-    private Button mBtnConfigure;
+   // private Button mBtnConfigure;
 
     private void updateTextView(String text) {
         TextView textView = (TextView) findViewById(R.id.txtNetworkStatus);
@@ -50,14 +50,14 @@ public class NetworkConnectActivity extends AppCompatActivity {
         connectToWiFiNetwork(bundle.getString("ssid"), bundle.getString("password"),
                 bundle.getString("security"), Boolean.parseBoolean(bundle.getString("hidden")));
 
-        mBtnConfigure = (Button) findViewById(R.id.btnConfigure);
+     /*   mBtnConfigure = (Button) findViewById(R.id.btnConfigure);
         mBtnConfigure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NetworkConnectActivity.this, ConfigureNetworkActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     public void connectToWiFiNetwork(String ssid, String keyPass, String security, boolean hidden){
@@ -95,9 +95,12 @@ public class NetworkConnectActivity extends AppCompatActivity {
     }
 
     private void onCompleted(){
-        updateTextView(getString(R.string.successful_connection));
+       /* updateTextView(getString(R.string.successful_connection));
 
-        mBtnConfigure.setEnabled(true);
+        mBtnConfigure.setEnabled(true);*/
+
+        Intent intent = new Intent(NetworkConnectActivity.this, ConfigureNetworkActivity.class);
+        startActivity(intent);
     }
 
     private void onAuthenticationError(){

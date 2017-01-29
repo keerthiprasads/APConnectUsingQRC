@@ -9,6 +9,9 @@
     <!-- End Activity labels -->
 
     <string name="scan_type">QR_CODE</string>
+
+    <string name="secure_setup">Secure Setup</string>
+    <string name="settings">Settings</string>
     <string name="attempt_connection">Attempting to connect to network: </string>
     <string name="connection_failure">Failed to connect to network: </string>
     <string name="auth_error">Authentication failure.</string>
